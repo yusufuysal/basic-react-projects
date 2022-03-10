@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import data from './data';
+import React from 'react';
 import List from './List';
+import "./index.css"
+
 function App() {
-  return <h2>reminder project setup</h2>;
+  return <div className = "main">
+    <List/>
+
+  </div>
 }
 
 export default App;
