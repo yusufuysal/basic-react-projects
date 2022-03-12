@@ -5,20 +5,24 @@ import { FaChevronLeft, FaChevronRight, FaQuoteRight } from "react-icons/fa";
 const Review = () => {
   const [peopleId, setPeopleId] = useState(1);
 
+  const checkNumber = (number) => {
+    if(number > people.length) {
+      return 1
+    } 
+    if(number < 1) {
+      return people.length - 1
+    } 
+    return number
+  }
+
   const prevReview = (id) => {
-    if (id === 1) {
-      setPeopleId(people.length);
-    } else {
-      setPeopleId(id - 1);
-    }
+    const left = checkNumber(id - 1)
+    setPeopleId(left)
   };
 
   const nextReview = (id) => {
-    if (id === people.length) {
-      setPeopleId(1);
-    } else {
-      setPeopleId(id + 1);
-    }
+     const right = checkNumber(id + 1)
+     setPeopleId(right)
   };
 
 
