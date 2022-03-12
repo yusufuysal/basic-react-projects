@@ -3,13 +3,13 @@ import people from "./data";
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from "react-icons/fa";
 
 const Review = () => {
-  const [peopleId, setPeopleId] = useState(1);
+  const [peopleId, setPeopleId] = useState(0);
 
   const checkNumber = (number) => {
-    if(number > people.length) {
-      return 1
+    if(number > people.length - 1) {
+      return 0
     } 
-    if(number < 1) {
+    if(number < 0) {
       return people.length - 1
     } 
     return number
@@ -25,22 +25,29 @@ const Review = () => {
      setPeopleId(right)
   };
 
+  const randomPeople = () => {
+    let randomIndex = Math.floor(Math.random() * people.length)
+    if(randomIndex === peopleId) {
+      randomIndex = peopleId - 1
+    }
+    setPeopleId(checkNumber(randomIndex))
+  }
 
   return (
     <div className="review">
       <div className="img-container">
         <img
           className="person-img"
-          src={people[`${peopleId - 1}`].image}
+          src={people[`${peopleId}`].image}
           alt=""
         />
         <span className="quote-icon">
           <FaQuoteRight/>
         </span>
       </div>
-      <h4 className="author">{people[`${peopleId - 1}`].name}</h4>
-      <p className="job">{people[`${peopleId - 1}`].job}</p>
-      <p className="info">{people[`${peopleId - 1}`].text}</p>
+      <h4 className="author">{people[`${peopleId}`].name}</h4>
+      <p className="job">{people[`${peopleId}`].job}</p>
+      <p className="info">{people[`${peopleId}`].text}</p>
       <div>
         <button
           className="prev-btn"
@@ -59,7 +66,7 @@ const Review = () => {
           <FaChevronRight/>
         </button>
       </div>
-      <button className="random-btn">Surprise me</button>
+      <button className="random-btn" onClick = {randomPeople}>Surprise me</button>
     </div>
   );
 };
