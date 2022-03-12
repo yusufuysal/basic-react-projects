@@ -23,6 +23,11 @@ function App() {
     }
   };
 
+  const removeTour = (id) => {
+    const newTours = tours.filter(tour => tour.id !== id)
+    setTours(newTours)
+  }
+
   useEffect(() => {
     getTours();
   }, []);
@@ -31,11 +36,20 @@ function App() {
     return <main>
       <Loading />
     </main>;
-  } else {
+  } 
+  if(tours.length === 0) {
     return <main>
-      <Tours tours={tours} />
+      <div className= "title">
+        <h2>no tour left</h2>
+        <button className="btn" onClick={getTours}>
+          refresh
+        </button>  
+      </div>
+    </main>
+  }
+    return <main>
+      <Tours tours={tours} removeTour = {removeTour}/>
     </main>;
   }
-}
 
 export default App;
