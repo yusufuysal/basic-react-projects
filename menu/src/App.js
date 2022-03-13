@@ -28,6 +28,12 @@ function App() {
           })}
           {}
         </div>
+        <div className="section-center">
+            {items.map(item => {
+              return <Menu key={item.id} {...item}/>
+            })}
+
+        </div>
       </section>
     </main>
   );
