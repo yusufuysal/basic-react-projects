@@ -4,7 +4,20 @@ import Categories from "./Categories";
 import items from "./data";
 
 function App() {
-  // const [category, setCategory] = useState([])
+
+    const filterCategory = (categoryName) => {
+      let filteredArray = []
+      if(categoryName === "all") {
+        filteredArray = items
+      }
+      filteredArray = items.filter(
+      (item) => item.category === `${categoryName}`
+    );
+    return filteredArray;
+  };
+
+  const [menuItemCategory, setMenuItemCategory] = useState("all");
+  const [menuList, setMenuList] = useState(items)
 
   let uniqueCategories = new Set();
   uniqueCategories.add("all");
@@ -12,6 +25,10 @@ function App() {
     uniqueCategories.add(item.category);
   });
   const uniqueCategoriesArray = Array.from(uniqueCategories);
+
+
+
+
 
   return (
     <main>
@@ -24,16 +41,29 @@ function App() {
           {/*   find the number of distinct categories in the data array and make a new set of those categories     */}
           {/*   map through the categories array and render the Categories component for each category     */}
           {uniqueCategoriesArray.map((category) => {
-            return <Categories category={category} />;
+            return (
+              <button
+                onClick={() => {
+                  setMenuItemCategory(`${category}`);
+                  setMenuList(filterCategory(`${category}`))
+                  if(category === "all") {
+                    setMenuList(items)
+                  }
+                }}
+                className="filter-btn"
+              >
+                <Categories category={category} />
+              </button>
+            );
           })}
           {}
         </div>
-        <div className="section-center">
-            {items.map(item => {
-              return <Menu key={item.id} {...item}/>
-            })}
-
-        </div>
+        <div className="section-center">{
+          menuList.map(menu => {
+            return <Menu key={menu.id} {...menu}/>
+          })
+         
+        }</div>
       </section>
     </main>
   );
