@@ -4,20 +4,17 @@ import Categories from "./Categories";
 import items from "./data";
 
 function App() {
-
-    const filterCategory = (categoryName) => {
-      let filteredArray = []
-      if(categoryName === "all") {
-        filteredArray = items
-      }
-      filteredArray = items.filter(
-      (item) => item.category === `${categoryName}`
-    );
+  const filterCategory = (categoryName) => {
+    let filteredArray = [];
+    if (categoryName === "all") {
+      filteredArray = items;
+    }
+    filteredArray = items.filter((item) => item.category === `${categoryName}`);
     return filteredArray;
   };
 
   const [menuItemCategory, setMenuItemCategory] = useState("all");
-  const [menuList, setMenuList] = useState(items)
+  const [menuList, setMenuList] = useState(items);
 
   let uniqueCategories = new Set();
   uniqueCategories.add("all");
@@ -25,10 +22,6 @@ function App() {
     uniqueCategories.add(item.category);
   });
   const uniqueCategoriesArray = Array.from(uniqueCategories);
-
-
-
-
 
   return (
     <main>
@@ -45,9 +38,9 @@ function App() {
               <button
                 onClick={() => {
                   setMenuItemCategory(`${category}`);
-                  setMenuList(filterCategory(`${category}`))
-                  if(category === "all") {
-                    setMenuList(items)
+                  setMenuList(filterCategory(`${category}`));
+                  if (category === "all") {
+                    setMenuList(items);
                   }
                 }}
                 className="filter-btn"
@@ -58,12 +51,11 @@ function App() {
           })}
           {}
         </div>
-        <div className="section-center">{
-          menuList.map(menu => {
-            return <Menu key={menu.id} {...menu}/>
-          })
-         
-        }</div>
+        <div className="section-center">
+          {menuList.map((menu) => {
+            return <Menu key={menu.id} {...menu} />;
+          })}
+        </div>
       </section>
     </main>
   );
